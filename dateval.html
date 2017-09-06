@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Date Validation</title>
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script>
+            $( function() {
+              var dateFormat = "mm/dd/yy",
+                from = $( "#from" )
+                  .datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    numberOfMonths: 1
+                  })
+                  .on( "change", function() {
+                    to.datepicker( "option", "minDate", getDate( this ) );
+                  }),
+                to = $( "#to" ).datepicker({
+                  defaultDate: "+1w",
+                  changeMonth: true,
+                  numberOfMonths: 1
+                })
+                .on( "change", function() {
+                  from.datepicker( "option", "maxDate", getDate( this ) );
+                });
+
+              function getDate( element ) {
+                var date;
+                try {
+                  date = $.datepicker.parseDate( dateFormat, element.value );
+                } catch( error ) {
+                  date = null;
+                }
+
+                return date;
+              }
+            } );
+            function display() {
+                var x=document.travel.from.value;
+                var y=document.travel.to.value;
+                var z=document.travel.name.value;
+                alert("Thanks, "+z+"! You are set to leave on "+x+" and return on " +y+ "!");
+                }
+
+
+        </script>
+        <style media="screen">
+            #wrapper {
+                width: 1000px;
+                margin: 0 auto;
+            }
+            form {
+                margin: 0 0 0 50px;
+            }
+            input {
+                margin: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h2>Welcome to the Coding Dojo Plan-A-Cruise!</h2>
+            <form name="travel">
+                <input type="text" id="from" name="from" placeholder="From:"></br>
+                <input type="text" id="to" name="to" placeholder="To:"></br>
+                <input type="text" name="name" id="name" placeholder="Name" required></br>
+                <input type="submit" name="Submit" value="submit" onclick="display();">
+            </form>
+        </div>
+    </body>
+</html>
